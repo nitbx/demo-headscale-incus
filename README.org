@@ -1,0 +1,8 @@
+* Demo headscale 
+** Ansible
+#+BEGIN_SRC
+ansible-galaxy install -f requirements.yml
+#+END_SRC
+
+
+
