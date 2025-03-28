@@ -1,0 +1,24 @@
+{
+  "groups":
+    {
+        "group:admin": ["bob"],
+        "group:users": ["user1", "user2", "user3"],
+    },
+    "tagOwners": {
+        "tag:users": ["group:admin"],
+	"tag:zones": ["group:admin"],
+	"tag:clients": ["group:admin"]
+    },
+    "acls": [
+        {
+          "action": "accept",
+          "src": ["group:admin"],
+            "dst": ["tag:*", "192.168.1.0/24:22,80,443,8443"]
+        },
+        {
+            "action": "accept",
+            "src": ["group:users"],
+            "dst": ["tag:zones:*", "192.168.1.1:53" ]
+        }
+    ]
+}

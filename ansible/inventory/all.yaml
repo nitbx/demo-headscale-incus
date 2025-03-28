@@ -1,0 +1,30 @@
+exit-node-clients:
+  hosts:
+    exit-node-client-0:
+    exit-node-client-1:
+    exit-node-client-2:
+
+
+exit-node-zones:
+  hosts:
+    exit-node-zone-0:
+    exit-node-zone-1:
+    exit-node-zone-2:
+
+
+exit-nodes:
+  children:
+    exit-node-clients:
+    exit-node-zones:
+
+headscale:
+  hosts:
+    headscale-0:
+
+
+all:
+  children:
+    exit-nodes:
+    exit-node-clients:
+    exit-node-zones:
+    headscale:

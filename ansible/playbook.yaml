@@ -1,0 +1,31 @@
+---
+- name: Deploy headscale
+  hosts: headscale
+  tasks:
+    - ansible.builtin.import_role:
+        name: kazauwa.headscale
+  tags: deploy-headscale
+  
+- name: Config network forward
+  hosts: exit-nodes
+  tasks:
+    - ansible.builtin.import_tasks: tasks/config_network_forward.yaml
+  tags: config-network-forward
+  
+- name: Deploy tailscaled on zones
+  hosts: exit-node-zones
+  tasks:
+    - ansible.builtin.set_fact:
+        ip_address: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
+    - ansible.builtin.import_role:
+        name: artis3n.tailscale
+  tags: deploy-exit-node
+  
+- name: Deploy tailscaled on clients
+  hosts: exit-node-clients
+  tasks:
+    - ansible.builtin.set_fact:
+        ip_address: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
+    - ansible.builtin.import_role:
+        name: artis3n.tailscale
+  tags: deploy-exit-node
